@@ -1,6 +1,6 @@
 namespace EFExam.Persistence.SoldTickets;
 
-public class SoldTicketRepository
+public class SoldTicketRepository(ApplicationDbContext context)
 {
     
 }

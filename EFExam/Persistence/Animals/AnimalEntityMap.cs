@@ -13,6 +13,6 @@ public class AnimalEntityMap : IEntityTypeConfiguration<Animal>
         builder.Property(animal => animal.Id).UseIdentityColumn();
         builder.Property(animal => animal.Name).HasMaxLength(100).IsRequired();
         builder.HasMany(animal => animal.Sections).WithOne(section => section.Animal)
-            .HasForeignKey(section => section.AnimalId);
+            .HasForeignKey(section => section.AnimalId).OnDelete(DeleteBehavior.SetNull);
     }
 }

@@ -12,6 +12,9 @@ public class SectionEntityMap : IEntityTypeConfiguration<Section>
         builder.HasKey(section => section.Id);
         builder.Property(section => section.Id).UseIdentityColumn();
         builder.Property(section => section.Area).IsRequired();
+        builder.Property(section => section.ZooId).IsRequired(false);
+        builder.Property(section => section.TicketId).IsRequired(false);
+        builder.Property(section => section.AnimalId).IsRequired(false);
         builder.Property(section => section.AnimalCount).IsRequired();
         builder.Property(section => section.Description).HasMaxLength(500).IsRequired();
         builder.Property(section => section.TicketId).HasMaxLength(500).IsRequired(false);
