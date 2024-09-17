@@ -1,10 +1,25 @@
 using EFExam.Dtos.Sections;
 using EFExam.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFExam.Persistence.Sections;
 
 public class SectionRepository(ApplicationDbContext context)
 {
+    // مشاهده بخش های باغ وحش و نوع و تعداد حیوانات درون آن به همراه توضیحات 
+
+    public List<SectionWithAnimalDto> SectionWithAnimal(int zooId)
+    {
+        var zoo = context.Set<Zoo>().FirstOrDefault(z => z.Id == zooId);
+        var sections = context.Set<Section>().Where(s => s.Zoo == zoo).Include(s => s.Animal);
+        return sections.Select(s => new SectionWithAnimalDto
+        {
+            AnimalName = s.Animal.Name != null ? s.Animal.Name : "no animal",
+            AnimalCount = s.AnimalCount,
+            Description = s.Description
+        }).ToList();
+    }
+
     public void Create(Section section)
     {
         context.Set<Section>().Add(section);
